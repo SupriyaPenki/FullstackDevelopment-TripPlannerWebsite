@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanTripper - Your Journey Starts Here</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-plane">&#9992;</div>
+            <div class="loader-text">PlanTripper</div>
+            <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">&#9992;</span>
+                <span class="logo-text">Plan<span class="logo-accent">Tripper</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#transport" class="nav-link">Book</a></li>
+                <li><a href="#destinations" class="nav-link">Destinations</a></li>
+                <li><a href="#budget" class="nav-link">Budget</a></li>
+                <li><a href="#deals" class="nav-link">Deals</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                    <span class="theme-icon sun">&#9728;&#65039;</span>
+                    <span class="theme-icon moon">&#127769;</span>
+                </button>
+                <button class="nav-icon-btn" id="wishlistNavBtn" title="Wishlist">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    <span class="badge" id="wishlistBadge">0</span>
+                </button>
+                <button class="nav-icon-btn" id="historyNavBtn" title="Booking History">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </button>
+                <button class="nav-icon-btn profile-btn" id="profileNavBtn" title="Profile">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </button>
+                <button class="btn btn-primary btn-login" id="loginBtn">Login / Sign Up</button>
+                <button class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-animation"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title animate-in">Explore the <span class="gradient-text">World</span> Your Way</h1>
+            <p class="hero-subtitle animate-in">Plan your perfect trip with the best deals on flights, trains, buses & cars</p>
+
+            <!-- Transport Tabs -->
+            <div class="transport-tabs animate-in">
+                <button class="transport-tab active" data-transport="flight">
+                    <span class="tab-icon">&#9992;&#65039;</span>
+                    <span class="tab-label">Flights</span>
+                </button>
+                <button class="transport-tab" data-transport="train">
+                    <span class="tab-icon">&#128642;</span>
+                    <span class="tab-label">Trains</span>
+                </button>
+                <button class="transport-tab" data-transport="bus">
+                    <span class="tab-icon">&#128652;</span>
+                    <span class="tab-label">Buses</span>
+                </button>
+                <button class="transport-tab" data-transport="car">
+                    <span class="tab-icon">&#128663;</span>
+                    <span class="tab-label">Cars</span>
+                </button>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box glass-card animate-in">
+                <div class="search-row">
+                    <div class="search-field">
+                        <label>From</label>
+                        <input type="text" id="fromInput" placeholder="Enter city" autocomplete="off">
+                        <div class="suggestions-dropdown" id="fromSuggestions"></div>
+                    </div>
+                    <button class="swap-btn" id="swapBtn" title="Swap">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+                    </button>
+                    <div class="search-field">
+                        <label>To</label>
+                        <input type="text" id="toInput" placeholder="Enter destination" autocomplete="off">
+                        <div class="suggestions-dropdown" id="toSuggestions"></div>
+                    </div>
+                    <div class="search-field date-field">
+                        <label>Departure</label>
+                        <input type="text" id="departDate" placeholder="Select date" readonly>
+                    </div>
+                    <div class="search-field date-field">
+                        <label>Return</label>
+                        <input type="text" id="returnDate" placeholder="Select date" readonly>
+                    </div>
+                    <div class="search-field passenger-field">
+                        <label>Passengers</label>
+                        <div class="passenger-display" id="passengerDisplay">
+                            <span id="passengerCount">1 Adult</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                        </div>
+                        <div class="passenger-dropdown" id="passengerDropdown">
+                            <div class="passenger-row">
+                                <div><strong>Adults</strong><small>12+ years</small></div>
+                                <div class="counter">
+                                    <button class="counter-btn" data-type="adults" data-action="minus">-</button>
+                                    <span id="adultCount">1</span>
+                                    <button class="counter-btn" data-type="adults" data-action="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="passenger-row">
+                                <div><strong>Children</strong><small>2-11 years</small></div>
+                                <div class="counter">
+                                    <button class="counter-btn" data-type="children" data-action="minus">-</button>
+                                    <span id="childCount">0</span>
+                                    <button class="counter-btn" data-type="children" data-action="plus">+</button>
+                                </div>
+                            </div>
+                            <div class="passenger-row">
+                                <div><strong>Infants</strong><small>0-2 years</small></div>
+                                <div class="counter">
+                                    <button class="counter-btn" data-type="infants" data-action="minus">-</button>
+                                    <span id="infantCount">0</span>
+                                    <button class="counter-btn" data-type="infants" data-action="plus">+</button>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="passengerDone">Done</button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary search-btn" id="searchBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Modal -->
+    <div class="modal-overlay" id="calendarModal">
+        <div class="modal glass-card calendar-modal">
+            <div class="modal-header">
+                <h3>Select Travel Dates</h3>
+                <button class="modal-close" id="calendarClose">&times;</button>
+            </div>
+            <div class="calendar-container">
+                <div class="calendar-month" id="calMonth1"></div>
+                <div class="calendar-month" id="calMonth2"></div>
+            </div>
+            <div class="calendar-nav">
+                <button class="btn btn-ghost" id="calPrev">&#8592; Previous</button>
+                <button class="btn btn-ghost" id="calNext">Next &#8594;</button>
+            </div>
+            <div class="calendar-footer">
+                <div class="selected-dates">
+                    <span>Departure: <strong id="calDepartDisplay">--</strong></span>
+                    <span>Return: <strong id="calReturnDisplay">--</strong></span>
+                </div>
+                <button class="btn btn-primary" id="calDone">Confirm Dates</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results / Transport Comparison -->
+    <section class="section results-section" id="resultsSection" style="display:none;">
+        <div class="container">
+            <h2 class="section-title">Best Transport Options</h2>
+            <p class="section-subtitle">We recommend the best way to travel based on your budget and destination</p>
+            <div class="comparison-cards" id="comparisonCards"></div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="section" id="destinations">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Popular <span class="gradient-text">Destinations</span></h2>
+            <p class="section-subtitle animate-on-scroll">Explore the most loved travel spots across India</p>
+            <div class="destinations-grid" id="destinationsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Destination Detail Modal -->
+    <div class="modal-overlay" id="destinationModal">
+        <div class="modal glass-card destination-detail-modal">
+            <button class="modal-close" id="destModalClose">&times;</button>
+            <div id="destModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Budget Section -->
+    <section class="section section-alt" id="budget">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Budget <span class="gradient-text">Planner</span></h2>
+            <p class="section-subtitle animate-on-scroll">Find the perfect trip within your budget</p>
+            <div class="budget-slider-container animate-on-scroll">
+                <input type="range" id="budgetSlider" min="0" max="50000" value="10000" step="1000">
+                <div class="budget-value">Budget: <strong>&#8377;<span id="budgetValue">10,000</span></strong></div>
+            </div>
+            <div class="budget-cards">
+                <div class="budget-card glass-card animate-on-scroll" data-budget="5000">
+                    <div class="budget-card-icon">&#128176;</div>
+                    <h3>Under &#8377;5,000</h3>
+                    <p>Budget-friendly getaways</p>
+                    <ul>
+                        <li>Rishikesh</li>
+                        <li>Varanasi</li>
+                        <li>Ooty</li>
+                    </ul>
+                    <button class="btn btn-outline">Explore</button>
+                </div>
+                <div class="budget-card glass-card animate-on-scroll" data-budget="10000">
+                    <div class="budget-card-icon">&#128184;</div>
+                    <h3>&#8377;5,000 - &#8377;10,000</h3>
+                    <p>Comfortable escapes</p>
+                    <ul>
+                        <li>Goa</li>
+                        <li>Jaipur</li>
+                        <li>Darjeeling</li>
+                    </ul>
+                    <button class="btn btn-outline">Explore</button>
+                </div>
+                <div class="budget-card glass-card animate-on-scroll" data-budget="20000">
+                    <div class="budget-card-icon">&#128179;</div>
+                    <h3>&#8377;10,000 - &#8377;20,000</h3>
+                    <p>Premium experiences</p>
+                    <ul>
+                        <li>Kerala</li>
+                        <li>Manali</li>
+                        <li>Udaipur</li>
+                    </ul>
+                    <button class="btn btn-outline">Explore</button>
+                </div>
+                <div class="budget-card glass-card animate-on-scroll" data-budget="50000">
+                    <div class="budget-card-icon">&#127775;</div>
+                    <h3>&#8377;20,000+</h3>
+                    <p>Luxury getaways</p>
+                    <ul>
+                        <li>Ladakh</li>
+                        <li>Andaman</li>
+                        <li>Agra</li>
+                    </ul>
+                    <button class="btn btn-outline">Explore</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Section -->
+    <section class="section" id="deals">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Trending <span class="gradient-text">Deals</span></h2>
+            <p class="section-subtitle animate-on-scroll">Grab the best offers before they expire</p>
+            <div class="deals-scroll">
+                <div class="deal-card glass-card animate-on-scroll">
+                    <div class="deal-badge">30% OFF</div>
+                    <div class="deal-gradient" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
+                    <div class="deal-content">
+                        <h3>Goa Flight Special</h3>
+                        <p>Round trip flights starting at &#8377;3,499</p>
+                        <div class="deal-timer" data-hours="23">&#9200; Ends in: <span class="timer-text">23:59:59</span></div>
+                        <button class="btn btn-primary btn-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="deal-card glass-card animate-on-scroll">
+                    <div class="deal-badge">25% OFF</div>
+                    <div class="deal-gradient" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+                    <div class="deal-content">
+                        <h3>Kerala Package</h3>
+                        <p>3 Nights starting at &#8377;7,999</p>
+                        <div class="deal-timer" data-hours="47">&#9200; Ends in: <span class="timer-text">47:59:59</span></div>
+                        <button class="btn btn-primary btn-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="deal-card glass-card animate-on-scroll">
+                    <div class="deal-badge">40% OFF</div>
+                    <div class="deal-gradient" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
+                    <div class="deal-content">
+                        <h3>Manali Bus Deal</h3>
+                        <p>AC Volvo from &#8377;899</p>
+                        <div class="deal-timer" data-hours="11">&#9200; Ends in: <span class="timer-text">11:59:59</span></div>
+                        <button class="btn btn-primary btn-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="deal-card glass-card animate-on-scroll">
+                    <div class="deal-badge">20% OFF</div>
+                    <div class="deal-gradient" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"></div>
+                    <div class="deal-content">
+                        <h3>Jaipur Train Offer</h3>
+                        <p>AC Chair Car from &#8377;599</p>
+                        <div class="deal-timer" data-hours="35">&#9200; Ends in: <span class="timer-text">35:59:59</span></div>
+                        <button class="btn btn-primary btn-sm">Book Now</button>
+                    </div>
+                </div>
+                <div class="deal-card glass-card animate-on-scroll">
+                    <div class="deal-badge">50% OFF</div>
+                    <div class="deal-gradient" style="background: linear-gradient(135deg, #fa709a, #fee140);"></div>
+                    <div class="deal-content">
+                        <h3>Ladakh Adventure</h3>
+                        <p>5 Day package from &#8377;14,999</p>
+                        <div class="deal-timer" data-hours="71">&#9200; Ends in: <span class="timer-text">71:59:59</span></div>
+                        <button class="btn btn-primary btn-sm">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section section-alt" id="testimonials">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">What Travelers <span class="gradient-text">Say</span></h2>
+            <p class="section-subtitle animate-on-scroll">Trusted by thousands of happy travelers</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card animate-on-scroll">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p>"PlanTripper made my Goa trip so easy to plan! The budget calculator saved me a ton of money."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #667eea, #764ba2);">RS</div>
+                        <div><strong>Rahul Sharma</strong><br><small>Mumbai</small></div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card animate-on-scroll">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p>"Best travel planner ever! Found amazing train deals to Jaipur. The comparison feature is brilliant."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">PK</div>
+                        <div><strong>Priya Kapoor</strong><br><small>Delhi</small></div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass-card animate-on-scroll">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+                    <p>"Booked a Kerala package for my family. The destination recommendations were spot on!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">AM</div>
+                        <div><strong>Arun Menon</strong><br><small>Bangalore</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login/Register Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="auth-modal glass-card">
+            <button class="modal-close" id="authClose">&times;</button>
+            <div class="auth-container" id="authContainer">
+                <!-- Login Form -->
+                <div class="auth-form" id="loginForm">
+                    <h2>Welcome Back!</h2>
+                    <p>Login to continue your journey</p>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email">
+                        <span class="error-msg" id="loginEmailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password">
+                        <span class="error-msg" id="loginPasswordError"></span>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="loginSubmit">Login</button>
+                    <p class="auth-switch">Don't have an account? <a href="#" id="showRegister">Sign Up</a></p>
+                </div>
+                <!-- Register Form -->
+                <div class="auth-form" id="registerForm" style="display:none;">
+                    <h2>Create Account</h2>
+                    <p>Join PlanTripper and start exploring</p>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="regName" placeholder="Enter your name">
+                        <span class="error-msg" id="regNameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="Enter your email">
+                        <span class="error-msg" id="regEmailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="regPhone" placeholder="Enter phone number">
+                        <span class="error-msg" id="regPhoneError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Create a password">
+                        <span class="error-msg" id="regPasswordError"></span>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="regSubmit">Sign Up</button>
+                    <p class="auth-switch">Already have an account? <a href="#" id="showLogin">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal glass-card profile-modal">
+            <button class="modal-close" id="profileClose">&times;</button>
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <h2 id="profileName">Guest User</h2>
+                    <p id="profileEmail">Please login to access your profile</p>
+                </div>
+                <div class="profile-cards">
+                    <div class="profile-card glass-card">
+                        <h3>&#128100; Personal Information</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="editName" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="editEmail" placeholder="Your email" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="editPhone" placeholder="Your phone">
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="saveProfile">Save Changes</button>
+                    </div>
+                    <div class="profile-card glass-card">
+                        <h3>&#127919; Travel Preferences</h3>
+                        <div class="form-group">
+                            <label>Preferred Transport</label>
+                            <select id="prefTransport">
+                                <option value="flight">Flight</option>
+                                <option value="train">Train</option>
+                                <option value="bus">Bus</option>
+                                <option value="car">Car</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Default Budget Range</label>
+                            <select id="prefBudget">
+                                <option value="5000">Under &#8377;5,000</option>
+                                <option value="10000">&#8377;5,000 - &#8377;10,000</option>
+                                <option value="20000">&#8377;10,000 - &#8377;20,000</option>
+                                <option value="50000">&#8377;20,000+</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="savePrefs">Save Preferences</button>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-full" id="logoutBtn" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal-overlay" id="wishlistModal">
+        <div class="modal glass-card wishlist-modal">
+            <button class="modal-close" id="wishlistClose">&times;</button>
+            <h2 class="modal-title">&#10084;&#65039; My Wishlist</h2>
+            <div class="wishlist-grid" id="wishlistGrid">
+                <div class="empty-state">
+                    <div class="empty-icon">&#128148;</div>
+                    <h3>Your wishlist is empty</h3>
+                    <p>Start adding destinations you love!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal glass-card history-modal">
+            <button class="modal-close" id="historyClose">&times;</button>
+            <h2 class="modal-title">&#128340; Booking History</h2>
+            <div class="history-timeline" id="historyTimeline">
+                <div class="empty-state">
+                    <div class="empty-icon">&#128203;</div>
+                    <h3>No bookings yet</h3>
+                    <p>Your travel history will appear here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal glass-card booking-modal">
+            <button class="modal-close" id="bookingClose">&times;</button>
+            <div class="booking-success" id="bookingSuccess">
+                <div class="success-animation">
+                    <div class="checkmark-circle">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><path class="checkmark-path" d="M20 6L9 17l-5-5"/></svg>
+                    </div>
+                </div>
+                <h2>Booking Confirmed!</h2>
+                <div class="ticket-card" id="ticketCard"></div>
+                <button class="btn btn-primary" id="bookingDone">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-icon">&#9992;</span>
+                        <span class="logo-text">Plan<span class="logo-accent">Tripper</span></span>
+                    </div>
+                    <p>Your ultimate travel companion. Plan, compare, and book your perfect trip with ease.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="Facebook">f</a>
+                        <a href="#" class="social-link" title="Twitter">X</a>
+                        <a href="#" class="social-link" title="Instagram">&#9641;</a>
+                        <a href="#" class="social-link" title="YouTube">&#9654;</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#destinations">Destinations</a>
+                    <a href="#budget">Budget Planner</a>
+                    <a href="#deals">Deals & Offers</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Cancellation Policy</a>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PlanTripper. All rights reserved. Made with &#10084;&#65039; in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
